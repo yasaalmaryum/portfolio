@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yasaal Maryum | Technical Project Manager</title>
+<meta name="description" content="Technical Project Manager coordinating 25+ international product-development projects across IoT, PCB, and mechanical design.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+:root{--bg:#04070f;--card:#0b1730;--line:#1c2f55;--blue:#3b82f6;--sky:#7cc4ff;--text:#e8eefc;--muted:#93a4c6;
+  --head:'Sora',system-ui,sans-serif;--body:'DM Sans',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto}
+body{background:var(--bg);color:var(--text);font:400 1.02rem/1.65 var(--body);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+.wrap{width:min(1120px,90%);margin:auto}
+h1,h2,h3{font-family:var(--head);line-height:1.1}
+
+/* global background */
+.bg{position:fixed;inset:0;z-index:0;background:radial-gradient(900px 560px at 82% 18%,rgba(59,130,246,.26),transparent 60%),radial-gradient(800px 560px at 0% 100%,rgba(29,78,216,.32),transparent 60%),linear-gradient(180deg,#04070f,#08112a)}
+.bg i{position:absolute;border-radius:50%;filter:blur(80px);opacity:.4;animation:float 16s ease-in-out infinite}
+.bg i:nth-child(1){width:360px;height:360px;background:#1d4ed8;top:6%;left:-90px}
+.bg i:nth-child(2){width:280px;height:280px;background:#0ea5e9;bottom:4%;right:26%;animation-delay:-7s}
+@keyframes float{50%{transform:translate(50px,-60px) scale(1.12)}}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* nav, progress, dots */
+nav{position:fixed;inset:0 0 auto 0;z-index:30;backdrop-filter:blur(14px);background:rgba(4,7,15,.55);border-bottom:1px solid rgba(28,47,85,.6)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+.logo{font:800 1.05rem var(--head);letter-spacing:.05em}
+.links{display:flex;gap:1.6rem;font-size:.95rem;color:var(--muted)}
+.links a:hover{color:var(--sky)}
+@media(max-width:700px){.links a:not(.keep){display:none}}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:40;background:linear-gradient(90deg,var(--blue),var(--sky));box-shadow:0 0 12px var(--blue)}
+#dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:30;display:none;flex-direction:column;gap:12px}
+body.fly #dots{display:flex}
+#dots button{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--muted);transition:.3s}
+#dots button.act{background:var(--sky);border-color:var(--sky);transform:scale(1.5);box-shadow:0 0 12px var(--sky)}
+
+/* stage + scenes */
+#stage{position:relative;z-index:1}
+.scene{padding:5.5rem 0;position:relative}
+body.fly #track{width:1px}
+body.fly #stage{position:fixed;inset:0;perspective:1000px;overflow:hidden}
+body.fly .scene{position:absolute;inset:0;display:flex;align-items:center;padding:76px 0 26px;will-change:transform,opacity}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--d,0s),transform .8s var(--d,0s)}
+.scene.on .rv{opacity:1;transform:none}
+.scene:not(.on) .rv{transition-delay:0s}
+.title{font-size:clamp(1.8rem,3.6vw,2.6rem);margin-bottom:.8rem}
+.lead{color:var(--muted);max-width:56ch}
+
+/* hero */
+.hero{min-height:100vh;display:flex;align-items:center}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:center}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr}.visual{order:-1;max-width:340px!important}}
+.pill{display:inline-flex;align-items:center;gap:.6rem;padding:.4rem 1rem;border-radius:999px;border:1px solid var(--line);background:rgba(11,23,48,.7);font-size:.88rem;color:var(--muted)}
+.pill b{width:9px;height:9px;border-radius:50%;background:#34d399;box-shadow:0 0 0 0 rgba(52,211,153,.7);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+h1{font-size:clamp(3rem,8.2vw,6.2rem);font-weight:800;letter-spacing:-.03em;margin:1.2rem 0 1rem}
+h1 span{display:block;width:fit-content;background:linear-gradient(100deg,#fff 0%,var(--sky) 35%,var(--blue) 55%,#fff 80%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shim 7s linear infinite}
+@keyframes shim{to{background-position:-220% 0}}
+.role{font:600 clamp(1.1rem,2.1vw,1.4rem) var(--head)}
+.role em{font-style:normal;color:var(--sky)}
+.role em::after{content:"";display:inline-block;width:2px;height:1.1em;background:var(--sky);margin-left:3px;vertical-align:-.15em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.intro{color:var(--muted);max-width:50ch;margin:.9rem 0 1.5rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+.chips span{font-size:.82rem;padding:.25rem .8rem;border-radius:8px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:var(--sky)}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem}
+.btn{padding:.8rem 1.4rem;border-radius:999px;font-weight:600;border:1px solid var(--line);transition:.25s}
+.btn.main{background:linear-gradient(135deg,var(--blue),#1d4ed8);border-color:transparent;box-shadow:0 8px 30px rgba(59,130,246,.35)}
+.btn:hover{transform:translateY(-3px);border-color:var(--sky)}
+.hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-size:.82rem;color:var(--muted);display:none;text-align:center}
+body.fly .hint{display:block;animation:nudge 2.4s ease-in-out infinite}
+@keyframes nudge{50%{transform:translate(-50%,-8px)}}
+
+/* hero visual */
+.visual{--mx:0;--my:0;position:relative;width:100%;max-width:540px;aspect-ratio:1;margin-inline:auto}
+.ring{position:absolute;border-radius:50%;border:1px dashed rgba(124,196,255,.28)}
+.ring::after{content:"";position:absolute;top:-5px;left:50%;width:10px;height:10px;border-radius:50%;background:var(--sky);box-shadow:0 0 16px var(--sky)}
+.r1{inset:0;animation:spin 30s linear infinite}
+.r2{inset:11%;animation:spin 22s linear infinite reverse;border-style:solid;border-color:rgba(59,130,246,.2)}
+.r3{inset:22%;animation:spin 16s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.glow{position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.45),transparent 70%);filter:blur(30px);animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.15);opacity:.7}}
+.photo{position:absolute;left:23%;top:15%;width:54%;aspect-ratio:4/5;border-radius:26px}
+.photo::before{content:"";position:absolute;inset:-3px;border-radius:29px;background:conic-gradient(from var(--ang),var(--blue),transparent 35%,var(--sky),transparent 75%,var(--blue));animation:ang 6s linear infinite}
+@keyframes ang{to{--ang:360deg}}
+.frame{position:absolute;inset:0;border-radius:26px;background:linear-gradient(160deg,#10254f,#07101f);display:grid;place-items:center;overflow:hidden;text-align:center;color:var(--muted);font-size:.85rem}
+.frame img{width:100%;height:100%;object-fit:cover}
+.frame b{display:block;font:800 3rem var(--head);color:var(--sky)}
+.chip{position:absolute;transform:translate(calc(var(--mx)*var(--k)*1px),calc(var(--my)*var(--k)*1px));transition:transform .2s linear}
+.chip>div{padding:.65rem 1rem;border-radius:16px;background:rgba(11,23,48,.75);backdrop-filter:blur(10px);border:1px solid rgba(124,196,255,.25);font-size:.85rem;font-weight:600;white-space:nowrap;box-shadow:0 14px 40px rgba(0,0,0,.4);animation:bob 6s ease-in-out infinite}
+.chip small{display:block;color:var(--muted);font-weight:400;font-size:.76rem}
+.chip.c1{top:5%;left:-2%}.chip.c2{top:30%;right:-4%}.chip.c3{bottom:8%;left:-4%}.chip.c4{bottom:0;right:4%}
+.c2>div{animation-delay:-2s}.c3>div{animation-delay:-4s}.c4>div{animation-delay:-1s}
+@keyframes bob{50%{transform:translateY(-12px)}}
+.mini{height:6px;width:130px;border-radius:9px;background:#14284f;margin-top:.5rem;overflow:hidden}
+.mini i{display:block;height:100%;width:78%;border-radius:9px;background:linear-gradient(90deg,var(--blue),var(--sky));animation:fill 3.5s ease-in-out infinite alternate}
+@keyframes fill{from{width:35%}to{width:92%}}
+@media(max-width:560px){.chip.c2,.chip.c3{display:none}}
+
+/* about */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:2rem 0}
+@media(max-width:700px){.facts{grid-template-columns:repeat(2,1fr)}}
+.facts strong{display:block;font:800 2.4rem var(--head);color:var(--sky)}
+.facts span{color:var(--muted);font-size:.9rem}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
+@media(max-width:800px){.three{grid-template-columns:1fr}}
+.three div{border-top:2px solid var(--blue);padding-top:1rem}
+.three h3{font-size:1.15rem;margin-bottom:.4rem}
+.three p{color:var(--muted);font-size:.95rem}
+
+/* case studies */
+.case{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.case.alt .shot{order:2}
+@media(max-width:900px){.case{grid-template-columns:1fr;gap:1.4rem}.case.alt .shot{order:0}}
+.shot{aspect-ratio:4/3;border-radius:20px;border:1.5px dashed #2a4a85;background:linear-gradient(145deg,rgba(59,130,246,.14),rgba(4,7,15,.6));display:grid;place-items:center;color:var(--muted);text-align:center;font-size:.9rem;overflow:hidden;box-shadow:0 0 60px rgba(59,130,246,.12)}
+.shot img{width:100%;height:100%;object-fit:cover}
+.count{color:var(--sky);font-size:.85rem;font-weight:600;margin-bottom:.5rem}
+.tag{display:inline-block;font-size:.8rem;font-weight:600;padding:.2rem .75rem;border-radius:999px;background:rgba(59,130,246,.15);color:var(--sky);border:1px solid rgba(59,130,246,.4);margin:0 .4rem .4rem 0}
+.case h3{font-size:clamp(1.5rem,2.7vw,2.1rem);margin:.2rem 0 .6rem}
+.case p,.case li{color:var(--muted);font-size:.95rem;line-height:1.55}
+.case h4{font:600 .9rem var(--head);margin:.9rem 0 .2rem}
+.case ul{list-style:none}
+.case li{position:relative;padding-left:1.2rem}
+.case li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--blue)}
+@media(max-height:760px){.case p,.case li{font-size:.88rem;line-height:1.45}.case h4{margin-top:.6rem}}
+
+/* testimonials + contact */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:2rem}
+@media(max-width:860px){.tgrid{grid-template-columns:1fr}}
+.quote{background:rgba(11,23,48,.8);border:1px solid var(--line);border-radius:20px;padding:1.7rem;transition:.3s}
+.quote:hover{transform:translateY(-6px);border-color:var(--blue)}
+.quote p{color:var(--muted);font-style:italic;min-height:4.5rem}
+.who{display:flex;align-items:center;gap:.8rem;margin-top:1.2rem}
+.av{width:46px;height:46px;border-radius:50%;background:#16305f;border:1px dashed var(--blue);flex:none}
+.who small{display:block;color:var(--muted)}
+.contact{text-align:center}
+.contact .lead{margin:.4rem auto 2rem}
+.contact .cta{justify-content:center}
+footer{margin-top:3rem;color:var(--muted);font-size:.88rem}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="bg"><i></i><i></i></div>
+<canvas id="stars"></canvas>
+<div id="bar"></div>
+<nav><div class="wrap">
+  <a class="logo" href="#top" data-go>YM</a>
+  <div class="links"><a href="#about" data-go>About</a><a href="#work" data-go>Case studies</a><a href="#words" data-go>Testimonials</a><a class="keep" href="#contact" data-go>Contact</a></div>
+</div></nav>
+<div id="dots" aria-label="Sections"></div>
+<div id="track"></div>
+
+<main id="stage">
+<!-- 1 HERO -->
+<section class="scene hero on" id="top"><div class="wrap">
+  <div>
+    <div class="pill rv"><b></b>Open to remote international roles</div>
+    <h1><span class="rv" style="--d:.1s">YASAAL</span><span class="rv" style="--d:.25s">MARYUM</span></h1>
+    <p class="role rv" style="--d:.4s">Technical Project Manager for <em id="type">IoT</em></p>
+    <p class="intro rv" style="--d:.5s">I run 25+ international product projects at once, keeping clients, engineers and manufacturers aligned from first requirement to final delivery.</p>
+    <div class="cta rv" style="--d:.6s">
+      <a class="btn main" href="mailto:yasaalmaryum8@gmail.com">Email me</a>
+      <a class="btn" href="#work" data-go>See case studies</a>
+      <a class="btn" href="https://www.linkedin.com/in/maryumyasaal" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="chips rv" style="--d:.7s"><span>ClickUp</span><span>Asana</span><span>React</span><span>Python</span><span>AI workflows</span></div>
+  </div>
+  <div class="visual rv" style="--d:.3s" id="visual">
+    <div class="glow"></div><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+    <div class="photo"><div class="frame">
+      <!-- ADD YOUR PHOTO: replace the div below with <img src="your-photo.jpg" alt="Yasaal Maryum"> -->
+      <div><b>YM</b><img src="myimg.jpeg" alt="img"></div>
+    </div></div>
+    <div class="chip c1" style="--k:22"><div>25+ live projects<small>managed at once</small></div></div>
+    <div class="chip c2" style="--k:-28"><div>IoT, PCB, Mechanical<small>one team, one plan</small></div></div>
+    <div class="chip c3" style="--k:-18"><div>Milestones on track<div class="mini"><i></i></div></div></div>
+    <div class="chip c4" style="--k:26"><div>UK, USA, UAE and more<small>7 client regions</small></div></div>
+  </div>
+  <div class="hint">Scroll to move forward</div>
+</div></section>
+
+<!-- 2 ABOUT -->
+<section class="scene" id="about"><div class="wrap">
+  <h2 class="title rv">How I run projects</h2>
+  <p class="lead rv" style="--d:.1s">Computer science background, product-development day job. I bridge the two.</p>
+  <div class="facts rv" style="--d:.2s">
+    <div><strong data-n="25" data-s="+">25+</strong><span>Concurrent projects</span></div>
+    <div><strong data-n="10" data-s="+">10+</strong><span>Projects completed</span></div>
+    <div><strong data-n="7" data-s="">7</strong><span>Client regions</span></div>
+    <div><strong>UK to UAE</strong><span>USA, Australia, Italy, Europe, Saudi Arabia</span></div>
+  </div>
+  <div class="three rv" style="--d:.3s">
+    <div><h3>Coordinate</h3><p>Requirements, timelines, quotations and deliverables, tracked in ClickUp with clear owners and deadlines.</p></div>
+    <div><h3>Communicate</h3><p>Wednesday and Friday updates covering progress, blockers and upcoming deliverables.</p></div>
+    <div><h3>Automate</h3><p>AI-assisted workflows and custom web tools that cut manual follow-ups and reporting.</p></div>
+  </div>
+</div></section>
+
+<!-- 3-8 CASE STUDIES are inserted here by script -->
+<div id="cases" style="display:contents"></div>
+
+<!-- 9 TESTIMONIALS -->
+<section class="scene" id="words"><div class="wrap">
+  <h2 class="title rv">What clients say</h2>
+  <p class="lead rv" style="--d:.1s">Three recent projects, all rated 5.0 and endorsed by the client.</p>
+  <div class="tgrid rv" style="--d:.2s">
+
+    <article class="quote">
+      <div class="stars" aria-label="5.0 out of 5">★★★★★ <b>5.0</b></div>
+      <h3>Portfolio of Drawings for Titan's Bipolar Forceps</h3>
+      <small class="date">May 7, 2026 to Jul 29, 2026</small>
+      <div class="qt"><p>Rated 5.0 and endorsed by the client, who highlighted three strengths:</p></div>
+      <div class="skills"><span>Clear Communicator</span><span>Detail Oriented</span><span>Accountable for Outcomes</span></div>
+      <div class="who"><div><b>Nick</b><small>Endorsed by client</small></div></div>
+    </article>
+
+    <article class="quote">
+      <div class="stars" aria-label="5.0 out of 5">★★★★★ <b>5.0</b></div>
+      <h3>Yanvi Critical PCB Pre-Fabrication Review: BODY, HEAD &amp; MicroMute</h3>
+      <small class="date">Oct 7, 2026 to Oct 19, 2026</small>
+      <div class="qt"><p>“It was a pleasure working with KeyMech Designs. They completed the project on time, were quick to respond throughout, and delivered neat, well-organized work. I appreciate their professionalism and would happily work with them again.”</p></div>
+      <div class="who"><div><b>Raghu</b><small>Endorsed by client</small></div></div>
+    </article>
+
+    <article class="quote">
+      <div class="stars" aria-label="5.0 out of 5">★★★★★ <b>5.0</b></div>
+      <h3>Product CAD Designer for Wellness Water Bottle</h3>
+      <small class="date">Jun 26, 2026 to Aug 6, 2026</small>
+      <div class="qt clamp">
+        <p> "Everything a manufacturer needs to begin prototyping and quotation. Yasaal managed all project communication with professionalism throughout. I will be working with them again."</p>
+        
+      </div>
+      <button class="more" onclick="const q=this.closest('.quote');q.classList.toggle('open');this.textContent=q.classList.contains('open')?'Show less':'Read full review'">Read full review</button>
+      <div class="who"><div><b>DeJean</b><small>Endorsed by client</small></div></div>
+    </article>
+
+  </div>
+</div></section>
+<!-- 10 CONTACT -->
+<section class="scene contact" id="contact"><div class="wrap">
+  <h2 class="title rv">Let's work together</h2>
+  <p class="lead rv" style="--d:.1s">Tell me about your product and I'll tell you how I'd run it.</p>
+  <div class="cta rv" style="--d:.2s">
+    <a class="btn main" href="mailto:yasaalmaryum8@gmail.com">yasaalmaryum8@gmail.com</a>
+    <a class="btn" href="https://www.linkedin.com/in/maryumyasaal" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn" href="tel:+923483111539">+92 348 3111539</a>
+  </div>
+  <footer class="rv" style="--d:.3s">© 2026 Yasaal Maryum. Wah Cantt, Pakistan.</footer>
+</div></section>
+</main>
+
+<script>
+/* ---------- Case study content: edit here. Set img to a file path to show your image. ---------- */
+const cases=[
+{t:"Wellness Water Bottle",tags:["IoT: to be confirmed"],img:"Vessel_Render_V1_Glass_Only.jpg",
+ o:"A wellness-focused water bottle with a touch-sensitive base and a refined enclosure.",
+ c:"Combine an attractive look with a practical base assembly and documentation ready for manufacturing.",
+ a:["Detailed CAD and refined product geometry","Touch-sensitive base design","2D drawings with callouts and component drawings","Bill of materials and updated manufacturing files"],
+ d:"Detailed CAD, STEP files, 2D drawings, BOM"},
+{t:"Height-Adjustable Laundry Basket",tags:[],img:"basket.PNG",
+ o:"A household basket that adjusts in height to make everyday use easier on the body.",
+ c:"A reliable height mechanism that stays stable and resists tipping at every position.",
+ a:["CAD models of the product and mechanism","Pin-lock design and Bowden cable routing","Tilt-resistance simulation and design validation","Supporting documentation and revisions"],
+ d:"CAD models, mechanism design, component documentation, stability validation materials"},
+{t:"Nose-Mounted Glasses-Clip Breathing System",tags:["IoT: to be confirmed"],img:"MVP_device wings.png",
+ o:"A compact wearable concept that attaches near the nose or to an eyeglasses frame.",
+ c:"Fit mechanical packaging and electronics into a tiny wearable, while resolving assembly, PCB, programming and motor issues.",
+ a:["Mechanical design files and prototype packaging","PCB testing and electrical integration support","Build, flashing and programming instructions","System documentation and demo materials"],
+ d:"CAD/STL files, electrical documentation, PCB test records, build instructions, demo materials"},
+{t:"Yanvi: Pre-Fabrication PCB Review",tags:["IoT-capable hardware (ESP32-S3)","IoT: to be confirmed"],img:"",
+ o:"A check of PCB designs before fabrication to catch hardware issues early and avoid costly rework.",
+ c:"Confirm electrical consistency, components, footprints, interfaces and manufacturability before release to production.",
+ a:["Schematic and component verification","PCB layout and footprint review","Interface and power-circuit assessment","Issue lists and pre-fabrication recommendations"],
+ d:"PCB review reports, issue lists, corrections, pre-fabrication recommendations"},
+{t:"Enclosure Design: WAG Wearable Device",tags:["IoT-related hardware (BLE, GNSS)"],img:"turtlepcbss.PNG",
+ o:"A compact enclosure for a wearable electronic device, built around its PCB, battery, connectors and wireless parts.",
+ c:"Keep antenna clearances, battery retention, connector access, easy assembly and serviceability in one small design.",
+ a:["Reviewed existing CAD and reusable design elements","Checked fit against PCB and battery dimensions","Assessed RF clearance and connector access","Documented changes, open inputs and recommendations"],
+ d:"CAD assessment, integration recommendations, annotated packaging views, remaining-work list"},
+{t:"Bipolar Forceps",tags:[],img:"bpf.png",
+ o:"Engineering documentation and design refinement for precision bipolar surgical forceps.",
+ c:"Accurate drawings and consistent mechanical interfaces, revised through client feedback without losing the intended geometry.",
+ a:["Prepared and revised engineering drawings","Updated component and molded-part documentation","Ran successive review stages with the client","Organized files for manufacturing reference"],
+ d:"Revised technical drawings, component and molded-part documentation, updated design files"}
+];
+document.getElementById('cases').innerHTML=cases.map((x,i)=>`
+<section class="scene" ${i==0?'id="work"':''}><div class="wrap"><div class="case ${i%2?'alt':''}">
+  <div class="shot rv">${x.img?`<img src="${x.img}" alt="${x.t}">`:`<span>Add project image<br><small>${x.t}</small></span>`}</div>
+  <div>
+    <div class="count rv" style="--d:.1s">Case study ${i+1} of ${cases.length}</div>
+    <div class="rv" style="--d:.15s">${x.tags.map(g=>`<span class="tag">${g}</span>`).join('')}</div>
+    <h3 class="rv" style="--d:.2s">${x.t}</h3>
+    <p class="rv" style="--d:.25s">${x.o}</p>
+    <div class="rv" style="--d:.3s"><h4>Challenge</h4><p>${x.c}</p></div>
+    <div class="rv" style="--d:.35s"><h4>What we did</h4><ul>${x.a.map(l=>`<li>${l}</li>`).join('')}</ul></div>
+    <div class="rv" style="--d:.4s"><h4>Deliverables</h4><p>${x.d}</p></div>
+  </div></div></div></section>`).join('');
+
+/* ---------- Fly-through scroll engine ---------- */
+const scenes=[...document.querySelectorAll('.scene')],N=scenes.length;
+const track=document.getElementById('track'),bar=document.getElementById('bar'),dotsBox=document.getElementById('dots');
+const mq=matchMedia('(min-width:900px) and (min-height:660px) and (prefers-reduced-motion:no-preference)');
+let fly=false,unit=1,cur=0,target=0,lastY=0,vel=0;
+const dots=scenes.map((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Go to section '+(i+1));b.onclick=()=>goTo(i);dotsBox.appendChild(b);return b});
+
+function setMode(first){
+  fly=mq.matches;document.body.classList.toggle('fly',fly);
+  unit=innerHeight*.9;
+  track.style.height=fly?((N-1)*unit+innerHeight)+'px':'0';
+  scenes.forEach(s=>{s.style.transform=s.style.opacity=s.style.filter=s.style.visibility=s.style.pointerEvents=''});
+  if(fly&&first)cur=scrollY/unit;
+}
+function goTo(i){scrollTo({top:fly?i*unit:scenes[i].offsetTop-60,behavior:'smooth'})}
+document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',e=>{
+  const el=document.querySelector(a.getAttribute('href'));if(!el)return;e.preventDefault();goTo(scenes.indexOf(el));}));
+addEventListener('keydown',e=>{
+  if(!fly)return;const k=e.key;
+  if(k==='ArrowRight'||k==='PageDown'){e.preventDefault();goTo(Math.min(N-1,Math.round(target)+1))}
+  if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();goTo(Math.max(0,Math.round(target)-1))}});
+
+const HOLD=.15;
+function render(){
+  scenes.forEach((s,i)=>{
+    const d=i-cur,a=Math.abs(d),e=Math.max(0,a-HOLD);
+    let z,o,b;
+    if(d>=0){z=-e*2200;o=1-e*2.4;b=e*12}      // coming from far away
+    else{z=e*1000;o=1-e*2.6;b=e*7}            // flying past the camera
+    o=Math.max(0,Math.min(1,o));
+    if(o<.01){s.style.visibility='hidden';s.classList.remove('on');return}
+    s.style.visibility='visible';s.style.opacity=o;
+    s.style.transform=`translateZ(${z.toFixed(1)}px)`;
+    s.style.filter=b>.3?`blur(${b.toFixed(1)}px)`:'none';
+    s.style.pointerEvents=a<.3?'auto':'none';
+    s.classList.toggle('on',a<.35);
+  });
+  const act=Math.round(cur);dots.forEach((b,i)=>b.classList.toggle('act',i===act));
+}
+
+/* non-fly mode: reveal on scroll */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!fly&&e.isIntersecting)e.target.classList.add('on')}),{threshold:.2});
+scenes.forEach(s=>io.observe(s));
+
+/* ---------- Starfield: streaks forward when you scroll down, backward when you scroll up ---------- */
+const cv=document.getElementById('stars'),ctx=cv.getContext('2d');
+let W,H,dpr=Math.min(devicePixelRatio||1,2);
+const stars=Array.from({length:150},()=>({x:Math.random()*2-1,y:Math.random()*2-1,z:Math.random()*.95+.05}));
+function size(){W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+function drawStars(v){
+  ctx.clearRect(0,0,W,H);const f=Math.max(W,H)*.55,dz=.0005+Math.abs(v)*.7,dir=v>=0?1:-1;
+  ctx.lineCap='round';
+  for(const s of stars){
+    const z0=s.z;s.z-=dir*(v===0?.0005:dz);
+    if(s.z<=.03){s.z=1;s.x=Math.random()*2-1;s.y=Math.random()*2-1}
+    else if(s.z>1.02){s.z=.05;s.x=Math.random()*2-1;s.y=Math.random()*2-1}
+    const x1=W/2+s.x/s.z*f*.5,y1=H/2+s.y/s.z*f*.5,x0=W/2+s.x/z0*f*.5,y0=H/2+s.y/z0*f*.5;
+    const al=Math.min(1,(1-s.z)*1.3)*.75;
+    ctx.strokeStyle=`rgba(124,196,255,${al})`;ctx.lineWidth=Math.min(2.2,.5+(1-s.z)*1.6);
+    ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x1+.01,y1);ctx.stroke();
+  }
+}
+
+function frame(){
+  const y=scrollY;
+  if(fly){const prev=cur;target=y/unit;cur+=(target-cur)*.085;if(Math.abs(target-cur)<.0004)cur=target;render();vel=cur-prev}
+  else vel=(y-lastY)/unit*.5;
+  lastY=y;
+  drawStars(vel);
+  bar.style.width=(y/Math.max(1,document.documentElement.scrollHeight-innerHeight)*100)+'%';
+  requestAnimationFrame(frame);
+}
+setMode(true);size();frame();
+addEventListener('resize',()=>{setMode(false);size()});
+mq.addEventListener('change',()=>setMode(true));
+
+/* ---------- Hero extras ---------- */
+const vis=document.getElementById('visual');
+addEventListener('mousemove',e=>{
+  vis.style.setProperty('--mx',((e.clientX/innerWidth)*2-1).toFixed(3));
+  vis.style.setProperty('--my',((e.clientY/innerHeight)*2-1).toFixed(3));
+});
+const words=["IoT products","PCB and electronics","mechanical design","prototyping"],tp=document.getElementById('type');
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+  let w=0,c=0,del=false;
+  (function tick(){
+    const word=words[w];c+=del?-1:1;tp.textContent=word.slice(0,c);
+    let t=del?35:75;
+    if(!del&&c===word.length){del=true;t=1600}
+    else if(del&&c===0){del=false;w=(w+1)%words.length;t=300}
+    setTimeout(tick,t);
+  })();
+}
+</script>
+</body>
+</html>
